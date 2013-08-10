@@ -13,7 +13,7 @@ from setuptools import setup
 
 setup(
     name='Flask-kale',
-    version='0',
+    version='0.1',
     author='Phil Schleihauf',
     author_email='uniphil@gmail.com',
     url='https://github.com/uniphil/flask-kale',
