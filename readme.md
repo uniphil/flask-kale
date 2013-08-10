@@ -34,3 +34,39 @@ ObjectId('5205b2edb50a1a04c7ec52b6')
 Kris Holm 36, crank ratio 4.6
 Custom 54, crank ratio 5.5
 ```
+
+```python
+>>> from flask import Flask
+>>> from flask.ext.pymongo import  PyMongo
+>>> from flask.ext.kale import Kale
+>>> 
+>>> app = Flask(__name__)
+>>> 
+>>> mongo = PyMongo()
+>>> 
+>>> kale = Kale()
+>>> 
+>>> @kale.dbgetter
+... def get_mongodb():
+...     return mongo.db
+... 
+>>> 
+>>> class User(kale.Model):
+...     _collection_name = 'users'
+...     def get_id(self):
+...             return str(self._id)
+... 
+>>> 
+>>> mongo.init_app(app)
+>>> kale.init_app(app)
+>>> 
+>>> with app.test_request_context():
+...     phil = User()
+...     phil.name = 'Phil'
+...     phil.username = 'uniphil'
+...     phil.password = 'lalala'
+...     phil.save()
+... 
+ObjectId('5205b89db50a1a07a1d8b088')
+
+```
